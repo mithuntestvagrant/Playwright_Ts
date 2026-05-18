@@ -21,5 +21,8 @@ test.describe("Parallel Tests", () => {
 test("Test E", async ({ page }) => {
     console.log("Running Test E");
   });
+  test("Test F", async ({ page }) => {
+    console.log("Running Test F");
+  });
 
 });
