@@ -18,6 +18,8 @@ test.describe("Parallel Tests", () => {
   test("Test D", async ({ page }) => {
     console.log("Running Test D");
   });
-
+test("Test E", async ({ page }) => {
+    console.log("Running Test E");
+  });
 
 });
