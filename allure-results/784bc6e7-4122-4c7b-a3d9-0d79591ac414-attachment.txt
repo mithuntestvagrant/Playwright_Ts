@@ -1,0 +1,3 @@
+Before All
+Inside Test 2
+After All

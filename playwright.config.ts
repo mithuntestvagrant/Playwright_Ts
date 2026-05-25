@@ -5,6 +5,11 @@ import { defineConfig, devices } from '@playwright/test';
  * Defines test execution settings and browsers
  */
 
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Load environment variables from .env file
+dotenv.config({ path: path.resolve(__dirname, 'tests/.env') }); 
 export default defineConfig({
 
   testDir: './tests',
@@ -15,48 +20,41 @@ export default defineConfig({
 
   retries: 0,
 
-  workers: 3,
+  workers: 1,
 
-  reporter: 'html',
+  reporter: [
+    ['html'],
+    ['allure-playwright']
+  ],
 
   use: {
-    trace: 'on-first-retry',
     
-  },
+    
+  trace: 'on',
+  screenshot: 'only-on-failure',
+  video: 'retain-on-failure',
+},
 
   /**
    * Browser projects configuration
-   * Each project runs tests on a different browser
    */
   projects: [
 
-    /**
-     * Chromium (Google Chrome)
-     */
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
 
-    /**
-     * Firefox browser
-     */
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
     // },
 
-    /**
-     * Mobile view (optional example)
-     */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
     // },
 
-    /**
-     * Microsoft Edge (optional)
-     */
     // {
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
