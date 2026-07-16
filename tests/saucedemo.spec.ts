@@ -1,23 +1,16 @@
 import { test, expect } from '@playwright/test';
 
-test('login and add product to cart', async ({ page }) => {
-
+test('Sauce Demo login test', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
-  // Login
-  await page.fill('[data-test="username"]', 'standard_user');
-  await page.fill('[data-test="password"]', 'secret_sauce');
-  await page.click('[data-test="login-button"]');
+  const username = page.locator('#user-name');
+  const password = page.locator('#password');
+  const loginbutton = page.locator('#login-button');
 
-  // Verify login
-  await expect(page).toHaveURL(/inventory/);
+  await username.fill('standard_user');
+  await password.fill('secret_sauce');
+  await loginbutton.click();
 
-
-  await page.getByRole('button', { name: 'Add to cart' }).first().click();
-
-  // Add product to cart
-  //await page.click('[data-test="add-to-cart-sauce-labs-backpack"]');
-
-  // Verify cart count
-  //await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+  await expect(page).toHaveURL(/inventory.html/);
+  await expect(page.locator('.inventory_list')).toBeVisible();
 });
