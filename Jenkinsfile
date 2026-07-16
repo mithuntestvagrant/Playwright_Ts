@@ -26,4 +26,15 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            publishHTML(target: [
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'Playwright HTML Report',
+                
+            ])
+        }
+    }
 }
