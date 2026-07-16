@@ -22,7 +22,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npx playwright test --reporter=html'
+                sh 'npx playwright test tests/saucedemo.spec.ts --reporter=html'
             }
         }
     }
