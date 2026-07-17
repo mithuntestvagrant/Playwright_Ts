@@ -9,8 +9,8 @@ pipeline {
     parameters {
         string(
             name: 'TEST_FILE',
-            defaultValue: 'tests/amazon.spec.ts',
-            description: 'tests/amazon.spec.ts'
+            defaultValue: 'tests/Dropdown.spec.ts',
+            description: 'tests/Dropdown.spec.ts'
         )
     }
 
