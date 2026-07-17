@@ -6,6 +6,14 @@ pipeline {
         PATH = "/opt/homebrew/bin:${env.PATH}"
     }
 
+    parameters {
+        string(
+            name: 'TEST_FILE',
+            defaultValue: 'tests/amazon.spec.ts',
+            description: 'tests/amazon.spec.ts'
+        )
+    }
+
     stages {
 
         stage('Install Dependencies') {
@@ -22,8 +30,18 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npx playwright test --reporter=html'
+                sh "npx playwright test ${params.TEST_FILE} --reporter=html"
             }
+        }
+    }
+
+    post {
+        always {
+            publishHTML(target: [
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'Playwright HTML Report'
+            ])
         }
     }
 }
