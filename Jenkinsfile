@@ -6,6 +6,14 @@ pipeline {
         PATH = "/opt/homebrew/bin:${env.PATH}"
     }
 
+    parameters {
+        string(
+            name: 'TEST_FILE',
+            defaultValue: 'tests/saucedemo.spec.ts',
+            description: 'tests/saucedemo.spec.ts'
+        )
+    }
+
     stages {
 
         stage('Install Dependencies') {
@@ -22,7 +30,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npx playwright test tests/saucedemo.spec.ts --reporter=html'
+                sh "npx playwright test ${params.TEST_FILE} --reporter=html"
             }
         }
     }
@@ -32,8 +40,7 @@ pipeline {
             publishHTML(target: [
                 reportDir: 'playwright-report',
                 reportFiles: 'index.html',
-                reportName: 'Playwright HTML Report',
-                
+                reportName: 'Playwright HTML Report'
             ])
         }
     }
